@@ -9,9 +9,10 @@ function RenderExcursion(props) {
   if (excursion != null) {
     return (
       <Card>
-        <Card.Title>{excursion.nombre}</Card.Title>
         <Card.Divider />
-        <Card.Image source={require("./imagenes/40Años.png")}></Card.Image>
+        <Card.Image source={require("./imagenes/40Años.png")}>
+          <Text style={styles.title}>{excursion.nombre}</Text>
+        </Card.Image>
         <Text style={{ margin: 20 }}>{excursion.descripcion}</Text>
       </Card>
     );
@@ -33,5 +34,13 @@ class DetalleExcursion extends Component {
     return <RenderExcursion excursion={this.state.excursiones[+excursionId]} />;
   }
 }
-
+const styles = {
+  title: {
+    position: "relative",
+    textAlign: "center",
+    color: "chocolate",
+    fontSize: 30,
+    fontWeight: "bold",
+  },
+};
 export default DetalleExcursion;

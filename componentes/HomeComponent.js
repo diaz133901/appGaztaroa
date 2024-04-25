@@ -11,9 +11,11 @@ function RenderItem(props) {
   if (item != null) {
     return (
       <Card>
-        <Card.Title>{item.nombre}</Card.Title>
         <Card.Divider />
-        <Card.Image source={require("./imagenes/40Años.png")}></Card.Image>
+
+        <Card.Image source={require("./imagenes/40Años.png")}>
+          <Text style={styles.title}>{item.nombre}</Text>
+        </Card.Image>
         <Text style={{ margin: 20 }}>{item.descripcion}</Text>
       </Card>
     );
@@ -55,4 +57,13 @@ class Home extends Component {
   }
 }
 
+const styles = {
+  title: {
+    position: "relative",
+    textAlign: "center",
+    color: "chocolate",
+    fontSize: 30,
+    fontWeight: "bold",
+  },
+};
 export default Home;
