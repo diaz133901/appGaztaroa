@@ -1,18 +1,18 @@
-import React, { Component } from "react";
-import Constants from "expo-constants";
-import Calendario from "./CalendarioComponent";
-import DetalleExcursion from "./DetalleExcursionComponent";
-import { Platform, View } from "react-native";
+import React from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import { createDrawerNavigator } from "@react-navigation/drawer";
+import Home from "./HomeComponent";
+import Calendario from "./CalendarioComponent";
+import DetalleExcursion from "./DetalleExcursionComponent";
 
 const Stack = createNativeStackNavigator();
+const Drawer = createDrawerNavigator();
 
-function CalendarioNavegador() {
+function CalendarioStack() {
   return (
     <Stack.Navigator
-      initialRouteName="Calendar"
-      headerMode="float"
+      initialRouteName="CalendarioMain"
       screenOptions={{
         headerTintColor: "#fff",
         headerStyle: { backgroundColor: "#015afc" },
@@ -37,21 +37,51 @@ function CalendarioNavegador() {
   );
 }
 
-class Campobase extends Component {
-  render() {
-    return (
-      <NavigationContainer>
-        <View
-          style={{
-            flex: 1,
-            paddingTop: Platform.OS === "ios" ? 0 : Constants.statusBarHeight,
-          }}
-        >
-          <CalendarioNavegador />
-        </View>
-      </NavigationContainer>
-    );
-  }
+function DrawerNavigator() {
+  return (
+    <Drawer.Navigator initialRouteName="Home">
+      <Drawer.Screen
+        name="HomeStack"
+        component={HomeStack}
+        options={{ title: "Home" }}
+      />
+      <Drawer.Screen
+        name="CalendarioStack"
+        component={CalendarioStack}
+        options={{ title: "Calendario" }}
+      />
+    </Drawer.Navigator>
+  );
+}
+
+function HomeStack() {
+  return (
+    <Stack.Navigator
+      initialRouteName="HomeMain"
+      screenOptions={{
+        headerTintColor: "#fff",
+        headerStyle: { backgroundColor: "#015afc" },
+        headerTitleStyle: { color: "#fff" },
+      }}
+    >
+      <Stack.Screen
+        name="HomeMain"
+        component={Home}
+        options={{
+          title: "Campo Base",
+          headerShown: true,
+        }}
+      />
+    </Stack.Navigator>
+  );
+}
+
+function Campobase() {
+  return (
+    <NavigationContainer>
+      <DrawerNavigator />
+    </NavigationContainer>
+  );
 }
 
 export default Campobase;
