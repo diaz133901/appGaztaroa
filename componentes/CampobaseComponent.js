@@ -14,6 +14,7 @@ import {
 } from "@react-navigation/drawer";
 import { Icon } from "@rneui/themed";
 import { SafeAreaView } from "react-native-safe-area-context";
+import { colorGaztaroaClaro, colorGaztaroaOscuro } from "../comun/comun";
 
 const Stack = createNativeStackNavigator();
 const Drawer = createDrawerNavigator();
@@ -48,7 +49,7 @@ function CalendarioStack({ navigation }) {
       initialRouteName="CalendarioMain"
       screenOptions={{
         headerTintColor: "#fff",
-        headerStyle: { backgroundColor: "#015afc" },
+        headerStyle: { backgroundColor: colorGaztaroaOscuro },
         headerTitleStyle: { color: "#fff" },
       }}
     >
@@ -86,7 +87,7 @@ function DrawerNavigator() {
       screenOptions={{
         headerShown: false,
         drawerStyle: {
-          backgroundColor: "#c2d3da",
+          backgroundColor: colorGaztaroaClaro,
         },
       }}
     >
@@ -150,7 +151,7 @@ function ContactoStack({ navigation }) {
       initialRouteName="ContactoMain"
       screenOptions={{
         headerTintColor: "#fff",
-        headerStyle: { backgroundColor: "#015afc" },
+        headerStyle: { backgroundColor: colorGaztaroaOscuro },
         headerTitleStyle: { color: "#fff" },
         headerLeft: () => (
           <Icon
@@ -180,7 +181,7 @@ function QuienSomosStack({ navigation }) {
       initialRouteName="QuienSomosMain"
       screenOptions={{
         headerTintColor: "#fff",
-        headerStyle: { backgroundColor: "#015afc" },
+        headerStyle: { backgroundColor: colorGaztaroaOscuro },
         headerTitleStyle: { color: "#fff" },
         headerLeft: () => (
           <Icon
@@ -210,7 +211,7 @@ function HomeStack({ navigation }) {
       initialRouteName="HomeMain"
       screenOptions={{
         headerTintColor: "#fff",
-        headerStyle: { backgroundColor: "#015afc" },
+        headerStyle: { backgroundColor: colorGaztaroaOscuro },
         headerTitleStyle: { color: "#fff" },
         headerLeft: () => (
           <Icon
@@ -247,7 +248,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   drawerHeader: {
-    backgroundColor: "#015afc",
+    backgroundColor: colorGaztaroaOscuro,
     height: 100,
     alignItems: "center",
     justifyContent: "center",

@@ -3,6 +3,7 @@ import { View, Text, FlatList } from "react-native";
 import { Card, ListItem, Avatar } from "@rneui/themed";
 import { ScrollView } from "react-native-virtualized-view";
 import { ACTIVIDADES } from "../comun/actividades";
+import { baseUrl } from "../comun/comun";
 
 const Historia = () => {
   return (
@@ -30,7 +31,7 @@ class QuienesSomos extends Component {
   renderActividadItem = ({ item }) => {
     return (
       <ListItem bottomDivider>
-        <Avatar source={require("./imagenes/40Años.png")} />
+        <Avatar source={{ uri: baseUrl + item.imagen }} />
         <ListItem.Content>
           <ListItem.Title>{item.nombre}</ListItem.Title>
           <ListItem.Subtitle>{item.descripcion}</ListItem.Subtitle>

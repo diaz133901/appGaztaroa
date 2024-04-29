@@ -5,15 +5,16 @@ import { Text, View, FlatList } from "react-native";
 import { COMENTARIOS } from "../comun/comentarios";
 
 import { ScrollView } from "react-native-virtualized-view";
+import { baseUrl } from "../comun/comun";
 
 function RenderExcursion(props) {
   const excursion = props.excursion;
-
+  console.log(excursion);
   if (excursion != null) {
     return (
       <Card>
         <Card.Divider />
-        <Card.Image source={require("./imagenes/40Años.png")}>
+        <Card.Image source={{ uri: baseUrl + excursion.imagen }}>
           <Text style={styles.title}>{excursion.nombre}</Text>
         </Card.Image>
         <Text style={{ margin: 20 }}>{excursion.descripcion}</Text>
@@ -96,7 +97,7 @@ const styles = {
   title: {
     position: "relative",
     textAlign: "center",
-    color: "chocolate",
+    color: "white",
     fontSize: 30,
     fontWeight: "bold",
   },
