@@ -4,6 +4,7 @@ import { Card, ListItem, Avatar } from "@rneui/themed";
 import { ScrollView } from "react-native-virtualized-view";
 import { baseUrl } from "../comun/comun";
 import { connect } from "react-redux";
+import { IndicadorActividad } from "./IndicadorActividadComponent";
 
 const mapStateToProps = (state) => {
   return {
@@ -47,22 +48,48 @@ class QuienesSomos extends Component {
   };
 
   render() {
-    return (
-      <ScrollView>
-        <Historia />
-        <View style={{ marginBottom: 10 }}>
+    if (this.props.actividades.isLoading) {
+      return (
+        <ScrollView>
+          <Historia />
           <Card>
-            <Card.Title>Actividades y recursos</Card.Title>
+            <Card.Title>"Actividades y recursos"</Card.Title>
             <Card.Divider />
-            <FlatList
-              data={this.props.actividades.actividades}
-              renderItem={this.renderActividadItem}
-              keyExtractor={(item) => item.id.toString()}
-            />
+            <IndicadorActividad />
           </Card>
-        </View>
-      </ScrollView>
-    );
+        </ScrollView>
+      );
+    } else if (this.props.actividades.errMess) {
+      return (
+        <ScrollView>
+          <Historia />
+          <Card>
+            <Card.Title>"Actividades y recursos"</Card.Title>
+            <Card.Divider />
+          </Card>
+          <View>
+            <Text>{this.props.excursiones.errMess}</Text>
+          </View>
+        </ScrollView>
+      );
+    } else {
+      return (
+        <ScrollView>
+          <Historia />
+          <View style={{ marginBottom: 10 }}>
+            <Card>
+              <Card.Title>Actividades y recursos</Card.Title>
+              <Card.Divider />
+              <FlatList
+                data={this.props.actividades.actividades}
+                renderItem={this.renderActividadItem}
+                keyExtractor={(item) => item.id.toString()}
+              />
+            </Card>
+          </View>
+        </ScrollView>
+      );
+    }
   }
 }
 

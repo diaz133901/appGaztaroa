@@ -1,8 +1,9 @@
 import React, { Component } from "react";
 import { ListItem, Avatar } from "@rneui/themed";
-import { SafeAreaView, FlatList } from "react-native";
+import { SafeAreaView, FlatList, View, Text } from "react-native";
 import { baseUrl } from "../comun/comun";
 import { connect } from "react-redux";
+import { IndicadorActividad } from "./IndicadorActividadComponent";
 
 const mapStateToProps = (state) => {
   return {
@@ -21,7 +22,6 @@ class Calendario extends Component {
           bottomDivider
         >
           <Avatar source={{ uri: baseUrl + item.imagen }} />
-
           <ListItem.Content>
             <ListItem.Title>{item.nombre}</ListItem.Title>
             <ListItem.Subtitle>{item.descripcion}</ListItem.Subtitle>
@@ -30,15 +30,25 @@ class Calendario extends Component {
       );
     };
 
-    return (
-      <SafeAreaView>
-        <FlatList
-          data={this.props.excursiones.excursiones}
-          renderItem={renderCalendarioItem}
-          keyExtractor={(item) => item.id.toString()}
-        />
-      </SafeAreaView>
-    );
+    if (this.props.excursiones.isLoading) {
+      return <IndicadorActividad />;
+    } else if (this.props.excursiones.errMess) {
+      return (
+        <View>
+          <Text>{this.props.excursiones.errMess}</Text>
+        </View>
+      );
+    } else {
+      return (
+        <SafeAreaView>
+          <FlatList
+            data={this.props.excursiones.excursiones}
+            renderItem={renderCalendarioItem}
+            keyExtractor={(item) => item.id.toString()}
+          />
+        </SafeAreaView>
+      );
+    }
   }
 }
 

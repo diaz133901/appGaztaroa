@@ -3,6 +3,7 @@ import { Text, ScrollView, View } from "react-native";
 import { Card } from "@rneui/themed";
 import { baseUrl } from "../comun/comun";
 import { connect } from "react-redux";
+import { IndicadorActividad } from "./IndicadorActividadComponent";
 
 const mapStateToProps = (state) => {
   return {
@@ -14,18 +15,29 @@ const mapStateToProps = (state) => {
 
 function RenderItem(props) {
   const item = props.item;
-  if (item != null) {
+
+  if (props.isLoading) {
+    return <IndicadorActividad />;
+  } else if (props.errMess) {
     return (
-      <Card>
-        <Card.Divider />
-        <Card.Image source={{ uri: baseUrl + item.imagen }}>
-          <Text style={styles.title}>{item.nombre}</Text>
-        </Card.Image>
-        <Text style={{ margin: 20 }}>{item.descripcion}</Text>
-      </Card>
+      <View>
+        <Text>{props.errMess}</Text>
+      </View>
     );
   } else {
-    return <View></View>;
+    if (item != null) {
+      return (
+        <Card>
+          <Card.Divider />
+          <Card.Image source={{ uri: baseUrl + item.imagen }}>
+            <Text style={styles.title}>{item.nombre}</Text>
+          </Card.Image>
+          <Text style={{ margin: 20 }}>{item.descripcion}</Text>
+        </Card>
+      );
+    } else {
+      return <View></View>;
+    }
   }
 }
 
@@ -39,6 +51,8 @@ class Home extends Component {
               (cabecera) => cabecera.destacado
             )[0]
           }
+          isLoading={this.props.cabeceras.isLoading}
+          errMess={this.props.cabeceras.errMess}
         />
         <RenderItem
           item={
@@ -46,6 +60,8 @@ class Home extends Component {
               (excursion) => excursion.destacado
             )[0]
           }
+          isLoading={this.props.excursiones.isLoading}
+          errMess={this.props.excursiones.errMess}
         />
         <RenderItem
           item={
@@ -53,6 +69,8 @@ class Home extends Component {
               (actividad) => actividad.destacado
             )[0]
           }
+          isLoading={this.props.actividades.isLoading}
+          errMess={this.props.actividades.errMess}
         />
       </ScrollView>
     );
