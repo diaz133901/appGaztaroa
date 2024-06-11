@@ -2,7 +2,7 @@ import * as ActionTypes from "./ActionTypes";
 import { baseUrl } from "../comun/comun";
 
 export const fetchComentarios = () => (dispatch) => {
-  return fetch(baseUrl + "comentarios")
+  return fetch(baseUrl + "comentarios.json", { mode: "no-cors" })
     .then(
       (response) => {
         if (response.ok) {
@@ -38,7 +38,7 @@ export const addComentarios = (comentarios) => ({
 export const fetchExcursiones = () => (dispatch) => {
   dispatch(excursionesLoading());
 
-  return fetch(baseUrl + "excursiones")
+  return fetch(baseUrl + "excursiones.json", { mode: "no-cors" })
     .then(
       (response) => {
         if (response.ok) {
@@ -78,7 +78,7 @@ export const addExcursiones = (excursiones) => ({
 export const fetchCabeceras = () => (dispatch) => {
   dispatch(cabecerasLoading());
 
-  return fetch(baseUrl + "cabeceras")
+  return fetch(baseUrl + "cabeceras.json", { mode: "no-cors" })
     .then(
       (response) => {
         if (response.ok) {
@@ -118,7 +118,7 @@ export const addCabeceras = (cabeceras) => ({
 export const fetchActividades = () => (dispatch) => {
   dispatch(actividadesLoading());
 
-  return fetch(baseUrl + "actividades")
+  return fetch(baseUrl + "actividades.json", { mode: "no-cors" })
     .then(
       (response) => {
         if (response.ok) {

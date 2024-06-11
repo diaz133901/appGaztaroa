@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import { View, Text, FlatList } from "react-native";
 import { Card, ListItem, Avatar } from "@rneui/themed";
 import { ScrollView } from "react-native-virtualized-view";
-import { baseUrl } from "../comun/comun";
 import { connect } from "react-redux";
 import { IndicadorActividad } from "./IndicadorActividadComponent";
 
@@ -38,7 +37,7 @@ class QuienesSomos extends Component {
   renderActividadItem = ({ item }) => {
     return (
       <ListItem bottomDivider>
-        <Avatar source={{ uri: baseUrl + item.imagen }} />
+        <Avatar source={{ uri: item.imagen }} />
         <ListItem.Content>
           <ListItem.Title>{item.nombre}</ListItem.Title>
           <ListItem.Subtitle>{item.descripcion}</ListItem.Subtitle>

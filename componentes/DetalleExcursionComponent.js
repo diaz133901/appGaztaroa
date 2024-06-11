@@ -8,7 +8,7 @@ import {
   StyleSheet,
 } from "react-native";
 import { Card, Icon } from "@rneui/themed";
-import { baseUrl, colorGaztaroaOscuro } from "../comun/comun";
+import { colorGaztaroaOscuro } from "../comun/comun";
 import { connect } from "react-redux";
 import { postComentario, postFavorito } from "../redux/ActionCreators";
 import { Button, Input, Rating } from "react-native-elements";
@@ -34,7 +34,7 @@ function RenderExcursion(props) {
     return (
       <Card>
         <Card.Divider />
-        <Card.Image source={{ uri: baseUrl + excursion.imagen }}>
+        <Card.Image source={{ uri: excursion.imagen }}>
           <Card.Title style={{ color: "lightgray", fontSize: 30 }}>
             {excursion.nombre}
           </Card.Title>
