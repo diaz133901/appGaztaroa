@@ -38,7 +38,7 @@ export const addComentarios = (comentarios) => ({
 export const fetchExcursiones = () => (dispatch) => {
   dispatch(excursionesLoading());
 
-  return fetch(baseUrl + "excursiones.json", { mode: "no-cors" })
+  return fetch(baseUrl + "excursiones.json")
     .then(
       (response) => {
         if (response.ok) {
@@ -78,7 +78,7 @@ export const addExcursiones = (excursiones) => ({
 export const fetchCabeceras = () => (dispatch) => {
   dispatch(cabecerasLoading());
 
-  return fetch(baseUrl + "cabeceras.json", { mode: "no-cors" })
+  return fetch(baseUrl + "cabeceras.json")
     .then(
       (response) => {
         if (response.ok) {
@@ -118,7 +118,7 @@ export const addCabeceras = (cabeceras) => ({
 export const fetchActividades = () => (dispatch) => {
   dispatch(actividadesLoading());
 
-  return fetch(baseUrl + "actividades.json", { mode: "no-cors" })
+  return fetch(baseUrl + "actividades.json")
     .then(
       (response) => {
         if (response.ok) {
@@ -167,18 +167,42 @@ export const addFavorito = (excursionId) => ({
 
 export const postComentario =
   (excursionId, valoracion, autor, comentario, dia) => (dispatch) => {
-    setTimeout(() => {
-      dispatch(addComentario(excursionId, valoracion, autor, comentario, dia));
-    }, 2000);
+    fetch(baseUrl + "comentarios.json", {
+      method: "POST",
+      body: JSON.stringify({
+        excursionId,
+        valoracion,
+        autor,
+        comentario,
+        dia,
+      }),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((response) => {
+        if (response.ok) {
+          return response.json();
+        } else {
+          throw new Error("Error al enviar el comentario");
+        }
+      })
+      .then((data) => {
+        const nuevoComentario = {
+          excursionId,
+          valoracion,
+          autor,
+          comentario,
+          dia,
+        };
+        dispatch(addComentario(nuevoComentario));
+      })
+      .catch((error) => dispatch(comentariosFailed(error.message)));
   };
 
-export const addComentario = (
-  excursionId,
-  valoracion,
-  autor,
-  comentario,
-  dia
-) => ({
-  type: ActionTypes.ADD_COMENTARIO,
-  payload: { excursionId, valoracion, autor, comentario, dia },
-});
+export const addComentario = (comentario) => {
+  return {
+    type: ActionTypes.ADD_COMENTARIO,
+    payload: comentario,
+  };
+};

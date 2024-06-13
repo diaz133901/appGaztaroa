@@ -79,10 +79,11 @@ function RenderExcursion(props) {
 
 function RenderComentario(props) {
   const comentarios = props.comentarios;
-  const renderComentarioItem = ({ item, index }) => {
-    let fecha = new Date(item.dia.replace(/\s/g, ""));
+  const renderComentarioItem = ({ item }) => {
+    let fecha = new Date(item.dia);
+    const key = item.id || item.autor;
     return (
-      <View key={index} style={{ margin: 10 }}>
+      <View key={key} style={{ margin: 10 }}>
         <Text style={{ fontSize: 14 }}>{item.comentario}</Text>
         <Text style={{ fontSize: 12 }}>{`-- ${
           item.autor
@@ -99,7 +100,7 @@ function RenderComentario(props) {
         scrollEnabled={false}
         data={comentarios}
         renderItem={renderComentarioItem}
-        keyExtractor={(item) => item.id.toString()}
+        keyExtractor={(item) => item.id || item.autor}
       />
     </Card>
   );
@@ -157,10 +158,13 @@ class DetalleExcursion extends Component {
           toggleModal={() => this.toggleModal()}
         />
         <RenderComentario
-          comentarios={this.props.comentarios.comentarios.filter(
-            (comentario) => comentario.excursionId === excursionId
-          )}
+          comentarios={Object.entries(this.props.comentarios.comentarios)
+            .filter(
+              ([key, comentario]) => comentario.excursionId === excursionId
+            )
+            .map(([key, comentario]) => comentario)}
         />
+
         <Modal
           animationType={"slide"}
           transparent={false}
