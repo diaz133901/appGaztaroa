@@ -12,7 +12,7 @@ import { StatusBar } from "expo-status-bar";
 import AuthComponent from "./componentes/AuthComponent";
 import { firebaseConfig } from "./comun/firebase";
 
-let app;
+export let app;
 let auth;
 
 if (!getApps().length) {

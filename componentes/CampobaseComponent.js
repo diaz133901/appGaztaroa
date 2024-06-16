@@ -21,6 +21,7 @@ import Calendario from "./CalendarioComponent";
 import DetalleExcursion from "./DetalleExcursionComponent";
 import Contacto from "./ContactoComponent";
 import QuienSomos from "./QuienesSomosComponent";
+import Fotos from "./Fotos";
 import { colorGaztaroaClaro, colorGaztaroaOscuro } from "../comun/comun";
 
 const mapStateToProps = (state) => {
@@ -101,6 +102,36 @@ function CalendarioStack({ navigation }) {
   );
 }
 
+function FotosStack({ navigation }) {
+  return (
+    <Stack.Navigator
+      initialRouteName="FotosMain"
+      screenOptions={{
+        headerTintColor: "#fff",
+        headerStyle: { backgroundColor: colorGaztaroaOscuro },
+        headerTitleStyle: { color: "#fff" },
+        headerLeft: () => (
+          <Icon
+            name="menu"
+            size={28}
+            color="white"
+            onPress={() => navigation.dispatch(DrawerActions.toggleDrawer())}
+          />
+        ),
+      }}
+    >
+      <Stack.Screen
+        name="FotosMain"
+        component={Fotos}
+        options={{
+          title: "Fotos",
+          headerShown: true,
+        }}
+      />
+    </Stack.Navigator>
+  );
+}
+
 function DrawerNavigator() {
   return (
     <Drawer.Navigator
@@ -157,6 +188,20 @@ function DrawerNavigator() {
           drawerIcon: ({ tintColor }) => (
             <Icon
               name="info-circle"
+              type="font-awesome"
+              size={24}
+              color={tintColor}
+            />
+          ),
+        }}
+      />
+      <Drawer.Screen
+        name="Fotos"
+        component={FotosStack}
+        options={{
+          drawerIcon: ({ tintColor }) => (
+            <Icon
+              name="camera"
               type="font-awesome"
               size={24}
               color={tintColor}
