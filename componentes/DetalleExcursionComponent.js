@@ -12,6 +12,7 @@ import { colorGaztaroaOscuro } from "../comun/comun";
 import { connect } from "react-redux";
 import { postComentario, postFavorito } from "../redux/ActionCreators";
 import { Button, Input, Rating } from "react-native-elements";
+import MapComponent from "./Map";
 
 const mapStateToProps = (state) => {
   return {
@@ -31,6 +32,11 @@ function RenderExcursion(props) {
   const excursion = props.excursion;
 
   if (excursion != null) {
+    const secondLocation = {
+      latitude: excursion.latitud,
+      longitude: excursion.altitud,
+    };
+
     return (
       <Card>
         <Card.Divider />
@@ -40,6 +46,7 @@ function RenderExcursion(props) {
           </Card.Title>
         </Card.Image>
         <Text style={{ margin: 20 }}>{excursion.descripcion}</Text>
+        <MapComponent secondLocation={secondLocation} />
         <View
           style={{
             flexDirection: "row",
