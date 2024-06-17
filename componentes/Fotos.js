@@ -9,7 +9,7 @@ import {
   Dimensions,
 } from "react-native";
 import * as ImagePicker from "expo-image-picker";
-import { app } from "../App";
+import { app } from "../comun/firebaseInit";
 import {
   getStorage,
   ref,

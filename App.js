@@ -1,29 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { View, Button, StyleSheet } from "react-native";
-import { initializeApp, getApps, getApp } from "firebase/app";
-import { initializeAuth, getAuth, signOut } from "firebase/auth";
-import AsyncStorage from "@react-native-async-storage/async-storage";
-import { getReactNativePersistence } from "firebase/auth";
 import { Provider } from "react-redux";
 import { ConfigureStore } from "./redux/configureStore";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import Campobase from "./componentes/CampobaseComponent";
 import { StatusBar } from "expo-status-bar";
 import AuthComponent from "./componentes/AuthComponent";
-import { firebaseConfig } from "./comun/firebase";
-
-export let app;
-let auth;
-
-if (!getApps().length) {
-  app = initializeApp(firebaseConfig);
-  auth = initializeAuth(app, {
-    persistence: getReactNativePersistence(AsyncStorage),
-  });
-} else {
-  app = getApp();
-  auth = getAuth(app);
-}
+import { auth } from "./comun/firebaseInit";
 
 const store = ConfigureStore();
 
