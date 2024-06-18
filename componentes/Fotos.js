@@ -17,6 +17,7 @@ import {
   getDownloadURL,
   uploadBytes,
 } from "firebase/storage";
+import { auth } from "../comun/firebaseInit";
 
 const { width } = Dimensions.get("window");
 const imageWidth = width - 40;
@@ -92,10 +93,16 @@ const Fotos = () => {
         contentType: "image/jpeg",
       };
 
-      const storageRef = ref(storage, "images/" + Date.now());
+      const storageRef = ref(
+        storage,
+        "images/" + Date.now() + "_" + auth.currentUser.email.split("@")[0]
+      );
       const snapshot = await uploadBytes(storageRef, blob, metadata);
 
-      console.log("File uploaded successfully", snapshot);
+      console.log(
+        "File uploaded successfully by the user: " + auth.currentUser.email,
+        snapshot
+      );
 
       fetchImagesFromStorage();
       setImage(null);

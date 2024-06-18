@@ -13,6 +13,7 @@ import { connect } from "react-redux";
 import { postComentario, postFavorito } from "../redux/ActionCreators";
 import { Button, Input, Rating } from "react-native-elements";
 import MapComponent from "./Map";
+import { auth } from "../comun/firebaseInit";
 
 const mapStateToProps = (state) => {
   return {
@@ -118,13 +119,19 @@ class DetalleExcursion extends Component {
     super(props);
     this.state = {
       valoracion: 5,
-      autor: "",
+      autor: auth.currentUser ? auth.currentUser.email : "",
       comentario: "",
       showModal: false,
     };
     this.resetForm = this.resetForm.bind(this);
     this.toggleModal = this.toggleModal.bind(this);
     this.gestionarComentario = this.gestionarComentario.bind(this);
+  }
+
+  componentDidMount() {
+    this.setState({
+      autor: auth.currentUser ? auth.currentUser.email : "",
+    });
   }
 
   marcarFavorito(excursionId) {
@@ -138,7 +145,7 @@ class DetalleExcursion extends Component {
   resetForm() {
     this.setState({
       valoracion: 5,
-      autor: "",
+      autor: auth.currentUser ? auth.currentUser.email : "",
       comentario: "",
       showModal: false,
     });
@@ -191,6 +198,7 @@ class DetalleExcursion extends Component {
               leftIcon={{ type: "font-awesome", name: "user" }}
               onChangeText={(value) => this.setState({ autor: value })}
               value={this.state.autor}
+              editable={false}
             />
             <Input
               placeholder="Comentario"

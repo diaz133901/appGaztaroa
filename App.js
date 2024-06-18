@@ -7,6 +7,7 @@ import Campobase from "./componentes/CampobaseComponent";
 import { StatusBar } from "expo-status-bar";
 import AuthComponent from "./componentes/AuthComponent";
 import { auth } from "./comun/firebaseInit";
+import { signOut } from "firebase/auth";
 
 const store = ConfigureStore();
 
