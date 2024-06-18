@@ -64,6 +64,22 @@ const Fotos = () => {
     }
   };
 
+  const takePhoto = async () => {
+    try {
+      let result = await ImagePicker.launchCameraAsync({
+        mediaTypes: ImagePicker.MediaTypeOptions.Images,
+        allowsEditing: true,
+        aspect: [4, 3],
+        quality: 1,
+      });
+      if (!result.cancelled) {
+        setImage(result.assets[0].uri);
+      }
+    } catch (E) {
+      console.log(E);
+    }
+  };
+
   const storage = getStorage(app);
 
   const getBlobFromUri = async (uri) => {
@@ -123,10 +139,8 @@ const Fotos = () => {
   return (
     <View style={styles.container}>
       <View style={styles.buttonContainer}>
-        <Button
-          title="Seleccionar imagen de la galería para que la vean todos los usuarios"
-          onPress={pickImage}
-        />
+        <Button title="Seleccionar imagen de la galería" onPress={pickImage} />
+        <Button title="Abrir cámara" onPress={takePhoto} />
         {image && (
           <View style={styles.previewContainer}>
             <Image source={{ uri: image }} style={styles.previewImage} />
